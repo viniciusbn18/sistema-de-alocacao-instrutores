@@ -1,0 +1,62 @@
+# ----------------------------------------------------------------------
+# 1. IntelliJ IDEA e IDEs
+# ----------------------------------------------------------------------
+# Arquivos e diretórios do IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Arquivos de histórico da VM
+*.vmoptions
+hs_err_pid*
+
+# ----------------------------------------------------------------------
+# 2. Maven (Build e Compilação)
+# ----------------------------------------------------------------------
+# Diretórios de classes e resultados de build
+/target/
+
+# Arquivos de package comuns
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+# Maven Wrapper - Mantenha o arquivo properties para builds reprodutíveis
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+logs/
+nohup.out
+# ----------------------------------------------------------------------
+# 3. Docker e Orquestração
+# ----------------------------------------------------------------------
+docker-compose.override.yml 
+docker-compose.local.yml
+
+# Arquivos de cache e volumes de Docker local
+.docker/
+tmp/
+# ----------------------------------------------------------------------
+# 4. SEGREDOS, CREDENCIAIS E CONFIGURAÇÕES LOCAIS (SEGURANÇA CRÍTICA)
+# ----------------------------------------------------------------------
+# Arquivos de configuração que contêm chaves de produção/sensíveis.
+# O JAR final NÃO deve ter estas chaves!
+application-prod.properties
+docker-compose.yml
+
+# Arquivos de variáveis de ambiente locais (usados com Docker ou IDE)
+.env
+
+# Chaves de segurança e certificados
+*.key
+*.pem
+*.p12
+
+# ----------------------------------------------------------------------
+# 5. Sistema Operacional
+# ----------------------------------------------------------------------
+.DS_Store
+Thumbs.db

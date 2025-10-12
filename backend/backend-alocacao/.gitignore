@@ -1,0 +1,45 @@
+# ----------------------------------------------------------------------
+# 1. ARQUIVOS DE BUILD/BINÁRIOS (MAVEN E JAVA)
+# ----------------------------------------------------------------------
+# Ignora a pasta de saída do Maven
+/target/
+
+*.jar
+*.war
+*.zip
+*.tar
+
+*.class
+# Logs
+*.log
+logs/
+
+!/.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.travis.yml
+# ----------------------------------------------------------------------
+# Pasta principal de configuração do IntelliJ IDEA
+.idea/
+
+*.iml
+*.iws
+*.ipr
+/out/
+# ----------------------------------------------------------------------
+# Mac
+.DS_Store
+# Windows
+Thumbs.db
+
+# ----------------------------------------------------------------------
+.env
+# ----------------------------------------------------------------------
+!application*.yml
+!application*.properties
