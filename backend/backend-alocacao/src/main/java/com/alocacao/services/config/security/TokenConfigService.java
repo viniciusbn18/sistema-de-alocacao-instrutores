@@ -1,4 +1,4 @@
-package com.alocacao.services.config;
+package com.alocacao.services.config.security;
 
 import com.alocacao.config.JWTUserData;
 import com.alocacao.entities.User;

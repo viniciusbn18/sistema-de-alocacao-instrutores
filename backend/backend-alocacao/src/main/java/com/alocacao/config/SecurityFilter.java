@@ -1,6 +1,6 @@
 package com.alocacao.config;
 
-import com.alocacao.services.config.TokenConfigService;
+import com.alocacao.services.config.security.TokenConfigService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

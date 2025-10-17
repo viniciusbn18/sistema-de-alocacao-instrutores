@@ -1,4 +1,4 @@
-package com.alocacao.services.config;
+package com.alocacao.services.config.security;
 
 import com.alocacao.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

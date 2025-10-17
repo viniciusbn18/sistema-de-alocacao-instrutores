@@ -1,7 +1,8 @@
 package com.alocacao.controllers;
 
 
-import com.alocacao.services.config.TokenConfigService;
+import com.alocacao.entities.Role;
+import com.alocacao.services.config.security.TokenConfigService;
 import com.alocacao.dto.request.LoginRequest;
 import com.alocacao.dto.request.RegisterUserRequest;
 import com.alocacao.dto.response.LoginResponse;
@@ -17,6 +18,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RequestMapping("/auth")
 @RestController
@@ -53,6 +56,12 @@ public class AuthController {
         newUser.setPassword(passwordEncoder.encode(request.password()));
         newUser.setName(request.name());
         newUser.setEmail(request.email());
+
+        if (request.role() != null) {
+            newUser.setRoles(Set.of(request.role()));
+        } else {
+            newUser.setRoles(Set.of(Role.ROLE_USER));
+        }
 
         userRepository.save(newUser);
 

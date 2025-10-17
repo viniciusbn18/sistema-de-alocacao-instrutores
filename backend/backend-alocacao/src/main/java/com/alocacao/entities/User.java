@@ -18,6 +18,7 @@ public class User implements UserDetails {
     private Long id;
 
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
 
@@ -87,5 +88,13 @@ public class User implements UserDetails {
 
     public void setPassword(String senha) {
         this.password = senha;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
