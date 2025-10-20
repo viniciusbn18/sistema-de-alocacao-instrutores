@@ -7,9 +7,12 @@ O objetivo deste README é servir como **guia completo** para desenvolvedores da
 
 ## **📁 Estrutura do repositório**
 
-- **projeto-alocacao-instrutores**
-    - backend
-    - Frontend
+/projeto-alocacao-instrutores
+├── backend/ # Código backend Spring Boot
+│ ├── src/
+│ └── Dockerfile
+├── frontend/ # Código frontend (HTML, CSS, JS)
+└── docker-compose.yml # Orquestração Docker para desenvolvimento
 
 ## **⚙️ Perfis de execução (Spring Boot)**
 
