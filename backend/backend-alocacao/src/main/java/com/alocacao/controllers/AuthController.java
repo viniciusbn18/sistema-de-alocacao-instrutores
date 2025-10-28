@@ -3,10 +3,10 @@ package com.alocacao.controllers;
 
 import com.alocacao.entities.Role;
 import com.alocacao.services.config.security.TokenConfigService;
-import com.alocacao.dto.request.LoginRequest;
-import com.alocacao.dto.request.RegisterUserRequest;
-import com.alocacao.dto.response.LoginResponse;
-import com.alocacao.dto.response.RegisterUserResponse;
+import com.alocacao.dto.request.LoginRequestDTO;
+import com.alocacao.dto.request.RegisterUserRequestDTO;
+import com.alocacao.dto.response.LoginResponseDTO;
+import com.alocacao.dto.response.RegisterUserResponseDTO;
 import com.alocacao.entities.User;
 import com.alocacao.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -39,18 +39,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO request) {
 
         UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
         Authentication authentication = authenticationManager.authenticate(userAndPass);
         User user = (User) authentication.getPrincipal();
         String token = tokenConfig.generateToken(user);
 
-        return ResponseEntity.ok(new LoginResponse(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterUserRequest request) {
+    public ResponseEntity<RegisterUserResponseDTO> register(@Valid @RequestBody RegisterUserRequestDTO request) {
         User newUser = new User();
 
         newUser.setPassword(passwordEncoder.encode(request.password()));
@@ -65,6 +65,6 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new RegisterUserResponse(newUser.getName(), newUser.getEmail()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new RegisterUserResponseDTO(newUser.getName(), newUser.getEmail()));
     }
 }

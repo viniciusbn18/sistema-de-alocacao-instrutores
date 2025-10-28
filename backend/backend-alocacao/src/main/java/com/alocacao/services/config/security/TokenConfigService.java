@@ -8,13 +8,14 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-@Service
+@Component
 public class TokenConfigService {
 
     @Value("${jwt.secret}")
@@ -26,7 +27,9 @@ public class TokenConfigService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
-            return JWT.create().withClaim("userId", user.getId())
+            return JWT.create()
+                    .withClaim("userId", user.getId())
+                    .withClaim("roles", user.getRoles().stream().map(Enum::name).toList())
                     .withSubject(user.getEmail())
                     .withExpiresAt(Instant.now().plus(expirationTime, ChronoUnit.SECONDS))
                     .withIssuedAt(Instant.now())
@@ -36,7 +39,6 @@ public class TokenConfigService {
         }
     }
 
-
     public Optional<JWTUserData> validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -44,6 +46,7 @@ public class TokenConfigService {
             return Optional.of(JWTUserData.builder()
                     .userId(decodedJWT.getClaim("userId").asLong())
                     .email(decodedJWT.getSubject())
+                    .roles(decodedJWT.getClaim("roles").asList(String.class))
                     .build());
         } catch (JWTVerificationException e) {
             return Optional.empty();
