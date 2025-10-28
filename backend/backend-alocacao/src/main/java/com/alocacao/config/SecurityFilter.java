@@ -1,17 +1,19 @@
 package com.alocacao.config;
 
-import com.alocacao.services.config.TokenConfigService;
+import com.alocacao.services.config.security.TokenConfigService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -34,7 +36,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             if (optUser.isPresent()) {
                 JWTUserData userData = optUser.get();
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userData, null);
+
+                List<SimpleGrantedAuthority> authorities = userData.roles().stream().map(SimpleGrantedAuthority::new).toList();
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userData,null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
